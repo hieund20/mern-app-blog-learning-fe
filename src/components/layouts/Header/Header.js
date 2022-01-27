@@ -19,6 +19,7 @@ import logo from "../../../assets/icons/logo.png";
 const Header = () => {
   return (
     <header className="header">
+      {/* Need to fixed top */}
       <Navbar color="light" expand="md" light>
         <NavbarBrand>
           <Link to={"/"}>

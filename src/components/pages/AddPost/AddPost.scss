@@ -1,0 +1,45 @@
+.add-post {
+    & > div:nth-child(1) {
+        & > input {
+            width: 100%;
+            margin-bottom: 8px;
+            &:focus{
+                outline: none;
+            }
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    & > div:nth-child(2) {
+        & > textarea {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 8px;
+            resize: none;
+            &:focus{
+                outline: none;
+            }
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    &-submit{
+        background-color: #e94c3d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+        width: 120px;
+        height: 30px;
+        float: right;
+        clear: both;
+    }
+}
