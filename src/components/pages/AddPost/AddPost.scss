@@ -3,7 +3,7 @@
         & > input {
             width: 100%;
             margin-bottom: 8px;
-            &:focus{
+            &:focus {
                 outline: none;
             }
         }
@@ -20,7 +20,7 @@
             width: 100%;
             margin-bottom: 8px;
             resize: none;
-            &:focus{
+            &:focus {
                 outline: none;
             }
         }
@@ -31,7 +31,37 @@
         }
     }
 
-    &-submit{
+    & > div:nth-child(3) {
+        & > input {
+            background-color: white;
+            margin-bottom: 8px;
+            &:focus {
+                outline: none;
+            }
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    & > div:nth-child(4) {
+        & > .thumbnail-overview {
+            width: 80px;
+            height: 80px;
+            border: 1px dashed gray;
+            border-radius: 6px;
+            & > img {
+                width: 100%;
+                object-fit: cover;
+                height: 80px;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    &-submit {
         background-color: #e94c3d;
         color: white;
         border: none;

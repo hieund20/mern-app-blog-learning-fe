@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 
 const ContentLayout = (props) => {
   return (
-    <Container className="border mt-5" fluid="lg">
+    <Container className="mt-5" fluid="lg">
       {props.children}
     </Container>
   );
