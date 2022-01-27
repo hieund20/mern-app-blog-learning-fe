@@ -7,7 +7,7 @@ export const getPostList = () => async (dispatch) => {
     });
 
     const res = await axios.get(
-      "https://mongo-express-learning-api.herokuapp.com/api/posts"
+      "https://mongo-express-learning-api.herokuapp.com/api/posts/getAllPost"
     );
 
     dispatch({
@@ -18,5 +18,20 @@ export const getPostList = () => async (dispatch) => {
     dispatch({
       type: "GET_POST_LIST_FAILED",
     });
+  }
+};
+
+export const postNewPost = async (payload) => {
+  try {
+    axios.post(
+      "https://mongo-express-learning-api.herokuapp.com/api/posts/addNewPost", {
+        title: payload.title,
+        content: payload.content,
+        author: payload.authorId,
+        thumbnailImage: payload.thumbnail
+      }
+    );
+  } catch (err) {
+    console.log("Error when post", err);
   }
 };

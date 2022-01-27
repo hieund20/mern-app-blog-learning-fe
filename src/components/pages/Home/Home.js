@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostList } from "../../../store/actions/postsAction";
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import "./Home.scss";
 
 import ContentLayout from "../../layouts/Content/Content";
 
@@ -24,12 +25,12 @@ const Home = (props) => {
       <div className="home">
         {postList?.data?.length > 0 &&
           postList?.data?.map((el) => (
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ minWidth: 350 }}>
               <CardMedia
                 component="img"
                 height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="green iguana"
+                image={el?.thumbnailImage}
+                alt="thumbnail"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
