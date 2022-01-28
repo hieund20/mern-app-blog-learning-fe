@@ -5,7 +5,7 @@ const initialState = {
   errorMessage: "",
 };
 
-const PostsReducer = (state = initialState, action) => {
+export const PostListReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_POST_LIST_LOADING":
       return {
@@ -31,4 +31,28 @@ const PostsReducer = (state = initialState, action) => {
   }
 };
 
-export default PostsReducer;
+export const PostDetailReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "GET_POST_DETAIL_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMessage: "",
+      };
+    case "GET_POST_DETAIL_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMessage: "",
+      };
+    case "GET_POST_DETAIL_FAILED":
+      return {
+        ...state,
+        loading: false,
+        errorMessage: "Unable to get post detail from API",
+      };
+    default:
+      return state;
+  }
+};
