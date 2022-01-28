@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import ContentLayout from "../../layouts/Content/Content";
 import { useForm } from "react-hook-form";
 import { postNewPost } from "../../../store/actions/postsAction";
+import defaultImage from "../../../assets/icons/defaultImage.svg";
 import "./AddPost.scss";
+import { Spinner } from "reactstrap";
 
 const AddPost = () => {
   const {
@@ -11,29 +13,19 @@ const AddPost = () => {
     formState: { errors },
   } = useForm();
   const [thumbnailImage, setThumbnailImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onChangeChooseFile = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    
+
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setThumbnailImage(reader.result);
     };
   };
 
-  // const toBase64 = (file) =>
-  //   new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => {
-  //       resolve(reader.result);
-  //     };
-  //     reader.onerror = (error) => reject(error);
-  //   });
-
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     console.log("Submit form", data);
 
     const newPost = {
@@ -42,8 +34,13 @@ const AddPost = () => {
       authorId: "61f2507f8db81258c1dd86dd",
       thumbnail: thumbnailImage,
     };
+    setLoading(true);
 
-    postNewPost(newPost);
+    setTimeout(async () => {
+      await postNewPost(newPost);
+      
+      setLoading(false);
+    }, [3000]);
   };
 
   return (
@@ -65,25 +62,32 @@ const AddPost = () => {
           )}
         </div>
 
-        <div className="mb-3">
-          <p>Choose a thumbnail</p>
-          <input
-            type="file"
-            {...register("thumbnail", { required: true })}
-            onChange={onChangeChooseFile}
-          />
-          {errors.thumbnail && (
-            <p className="error-message">Thumbnail is required</p>
-          )}
-        </div>
-
-        <div className="mb-5">
-          <div className="thumbnail-overview">
-            <img src={thumbnailImage} alt="thumbnail" />
+        <div className="mb-3 d-flex">
+          <div>
+            <p>Choose a thumbnail</p>
+            <input
+              type="file"
+              {...register("thumbnail", { required: true })}
+              onChange={onChangeChooseFile}
+            />
+            {errors.thumbnail && (
+              <p className="error-message">Thumbnail is required</p>
+            )}
+          </div>
+          <div>
+            <div className="thumbnail-overview">
+              <img
+                src={thumbnailImage ? thumbnailImage : defaultImage}
+                alt="thumbnail"
+              />
+            </div>
           </div>
         </div>
 
-        <input type="submit" className="add-post-submit" value="Post" />
+        <div>
+          {loading && <Spinner></Spinner>}
+          <input type="submit" className="add-post-submit" value="Post" />
+        </div>
       </form>
     </ContentLayout>
   );
