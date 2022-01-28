@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostList, deletePost } from "../../../store/actions/postsAction";
 import {
@@ -14,6 +14,7 @@ import removeIcon from "../../../assets/icons/remove.svg";
 import moreIcon from "../../../assets/icons/more.svg";
 import ContentLayout from "../../layouts/Content/Content";
 import DeleteModal from "./SubComponent/DeleteModal";
+import { useOnClickOutside } from "../../../helpers/hooks/customHook";
 
 import "./Home.scss";
 
@@ -27,6 +28,15 @@ const Home = (props) => {
     show: false,
   });
   const [modalShow, setModalShow] = useState(false);
+  const [postId, setPostId] = useState("");
+  const actionDropdownRef = useRef();
+
+  useOnClickOutside(actionDropdownRef, () =>
+    setActionShow({
+      ...actionShow,
+      show: false,
+    })
+  );
 
   const fetchPostList = async () => {
     await dispatch(getPostList());
@@ -34,15 +44,6 @@ const Home = (props) => {
 
   const handleViewPost = (id) => {
     navigate(`posts/${id}`);
-  };
-
-  const handleDeletePost = async (_id) => {
-    // const payload = {
-    //   _id: _id,
-    // };
-
-    // await dispatch(deletePost(payload));
-    setModalShow(true);
   };
 
   const handleShowActionDropdown = (idx) => {
@@ -82,12 +83,21 @@ const Home = (props) => {
                     onClick={() => handleShowActionDropdown(idx)}
                   />
                   {actionShow.idx === idx && actionShow.show && (
-                    <div className="action-dropdown-items" key={idx}>
+                    <div
+                      className="action-dropdown-items"
+                      key={idx}
+                      ref={actionDropdownRef}
+                    >
                       <div>
                         <img src={editIcon} alt="edit-icon" />
                         {"Edit this post"}
                       </div>
-                      <div onClick={() => handleDeletePost(el?._id)}>
+                      <div
+                        onClick={() => {
+                          setPostId(el?._id);
+                          setModalShow(true);
+                        }}
+                      >
                         <img src={removeIcon} alt="remove-icon" />
                         {"Delete this post"}
                       </div>
@@ -97,7 +107,13 @@ const Home = (props) => {
               </CardActions>
             </Card>
           ))}
-        {modalShow && <DeleteModal open={modalShow} onClose={setModalShow} />}
+        {modalShow && (
+          <DeleteModal
+            open={modalShow}
+            onClose={setModalShow}
+            postId={postId}
+          />
+        )}
       </div>
     </ContentLayout>
   );
