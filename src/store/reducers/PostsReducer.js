@@ -1,4 +1,3 @@
-
 const initialState = {
   loading: false,
   data: [],
@@ -25,6 +24,12 @@ export const PostListReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         errorMessage: "Unable to get post list from API",
+      };
+    case "DELETE_POST_SUCCESS":
+      return {
+        ...state,
+        loading: true,
+        data: state.data.filter((post) => post._id !== action.payload),
       };
     default:
       return state;

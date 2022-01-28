@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPostDetail } from "../../../store/actions/postsAction";
 import ContentLayout from "../../layouts/Content/Content";
 import _ from "lodash";
 import moment from "moment";
-import editIcon from "../../../assets/icons/edit.svg";
-import removeIcon from "../../../assets/icons/remove.svg";
 
 import "./PostDetail.scss";
 
@@ -17,7 +15,7 @@ const PostDetail = () => {
 
   const fetchPostDetail = async () => {
     const payload = {
-      id: id,
+      _id: id,
     };
     await dispatch(getPostDetail(payload));
   };
@@ -33,21 +31,7 @@ const PostDetail = () => {
       <div className="post-detail">
         {postDetail && !_.isEmpty(postDetail?.data) && (
           <div className="post-detail-container">
-            <div className="d-flex justify-content-between">
-              <div>
-                <h2>{postDetail?.data?.title}</h2>
-              </div>
-              <div>
-                <div>
-                  <img src={editIcon} alt="edit-icon" />
-                  {" Edit this post"}
-                </div>
-                <div>
-                  <img src={removeIcon} alt="remove-icon" />
-                  {" Delete this post"}
-                </div>
-              </div>
-            </div>
+            <h2>{postDetail?.data?.title}</h2>
             <p>
               {postDetail?.data?.author} -{" "}
               {moment(postDetail?.data?.createdAt).format(
