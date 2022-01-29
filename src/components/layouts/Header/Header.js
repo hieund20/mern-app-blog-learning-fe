@@ -40,7 +40,7 @@ const Header = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link to={"/addPost"}>Add New Post</Link>
+                <Link to={"/posts/addPost"}>Add New Post</Link>
               </NavLink>
             </NavItem>
             {/* <UncontrolledDropdown inNavbar nav>

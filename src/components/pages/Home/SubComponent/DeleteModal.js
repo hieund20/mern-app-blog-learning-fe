@@ -12,6 +12,7 @@ const style = {
   width: 500,
   height: 200,
   bgcolor: "background.paper",
+  outline: "none",
   border: "none",
   borderRadius: 2,
   boxShadow: 24,

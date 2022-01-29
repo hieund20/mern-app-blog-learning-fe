@@ -59,6 +59,23 @@ export const postNewPost = async (payload) => {
   }
 };
 
+export const updatePost = (payload) => {
+  try {
+    axios.patch(
+      `https://mongo-express-learning-api.herokuapp.com/api/posts/updatePost`,
+      {
+        _id: payload._id,
+        title: payload.title,
+        content: payload.content,
+        author: payload.authorId,
+        thumbnailImage: payload.thumbnail,
+      }
+    );
+  } catch (err) {
+    console.log("Error when PATCH", err);
+  }
+};
+
 export const deletePost = (payload) =>  async (dispatch) => {
   try {
     axios.delete(

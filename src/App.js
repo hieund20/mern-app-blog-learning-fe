@@ -6,6 +6,7 @@ import NotFound from "./components/pages/NotFound/NotFound";
 import Header from "./components/layouts/Header/Header";
 import AddPost from "./components/pages/AddPost/AddPost";
 import PostDetail from "./components/pages/PostDetail/PostDetail";
+import EditPost from "./components/pages/EditPost/EditPost";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/posts/:id" element={<PostDetail />} />
-            <Route path="/addPost" element={<AddPost />} />
+            <Route path="/posts/addPost" element={<AddPost />} />
+            <Route path="/posts/editPost/:id" element={<EditPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
