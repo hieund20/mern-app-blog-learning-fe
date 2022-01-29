@@ -32,6 +32,17 @@
     }
 
     & > div:nth-child(3) {
+        & > label {
+           margin-right: 16px;
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    & > div:nth-child(4) {
         align-items: center;
         & > div:nth-child(1) {
             & > input {
@@ -63,17 +74,17 @@
         }
     }
 
-    & > div:nth-child(4){
+    & > div:nth-child(5) {
         display: flex;
         align-items: center;
-        
+
         margin-left: auto;
         margin-right: 0;
         width: 160px;
 
-        & .spinner-border{
-          width: 25px;
-          height: 25px;
+        & .spinner-border {
+            width: 25px;
+            height: 25px;
         }
     }
 
@@ -87,7 +98,7 @@
         height: 40px;
         margin-right: 0;
         margin-left: auto;
-        
+
         &:hover {
             filter: brightness(1.2);
         }

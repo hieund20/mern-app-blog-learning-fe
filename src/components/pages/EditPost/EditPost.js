@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPostDetail, updatePost } from "../../../store/actions/postsAction";
 import _ from "lodash";
+import "./EditPost.scss";
 
 const EditPost = (props) => {
   const {
@@ -22,6 +23,7 @@ const EditPost = (props) => {
   const [titleValue, setTitleValue] = useState("");
   const [contentValue, setContentValue] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState();
+
   const [loading, setLoading] = useState(false);
 
   const fetchPostDetail = async () => {
@@ -57,8 +59,13 @@ const EditPost = (props) => {
       authorId: "61f2507f8db81258c1dd86dd",
       thumbnail: thumbnailImage,
     };
+    setLoading(true);
 
-    await updatePost(updatePostDetail);
+    setTimeout(async () => {
+      await updatePost(updatePostDetail);
+
+      setLoading(false);
+    }, 3000);
   };
 
   useEffect(() => {
