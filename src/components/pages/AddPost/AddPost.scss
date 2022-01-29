@@ -33,7 +33,7 @@
 
     & > div:nth-child(3) {
         & > label {
-           margin-right: 16px;
+            margin-right: 16px;
         }
         text-align: left;
         & > .error-message {
@@ -44,6 +44,7 @@
 
     & > div:nth-child(4) {
         align-items: center;
+
         & > div:nth-child(1) {
             & > input {
                 background-color: white;

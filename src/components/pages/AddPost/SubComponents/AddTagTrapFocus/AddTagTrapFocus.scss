@@ -1,0 +1,22 @@
+.add-tag-trap {
+    display: inline-flex;
+    margin-left: 16px;
+    align-items: center;
+
+    & > div:nth-child(1){
+        cursor: pointer;
+
+        width: 25px;
+        height: 25px;
+        border-radius: 20px;
+        &:hover{
+            background-color: lightgray;
+        }
+    }
+    
+    & .input-text{
+        & > input{
+            width: 250px;
+        }
+    }
+}
