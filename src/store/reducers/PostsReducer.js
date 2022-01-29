@@ -28,7 +28,7 @@ export const PostListReducer = (state = initialState, action) => {
     case "DELETE_POST_SUCCESS":
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: state.data.filter((post) => post._id !== action.payload),
       };
     default:

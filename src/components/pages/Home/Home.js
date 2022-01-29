@@ -46,6 +46,10 @@ const Home = (props) => {
     navigate(`posts/${id}`);
   };
 
+  const handleEditPost = (id) => {
+    navigate(`posts/editPost/${id}`);
+  };
+
   const handleShowActionDropdown = (idx) => {
     setActionShow({
       idx: idx,
@@ -88,7 +92,7 @@ const Home = (props) => {
                       key={idx}
                       ref={actionDropdownRef}
                     >
-                      <div>
+                      <div onClick={() => handleEditPost(el?._id)}>
                         <img src={editIcon} alt="edit-icon" />
                         {"Edit this post"}
                       </div>
