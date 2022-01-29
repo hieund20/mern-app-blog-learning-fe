@@ -1,0 +1,95 @@
+.edit-post {
+    & > div:nth-child(1) {
+        & > input {
+            width: 100%;
+            margin-bottom: 8px;
+            &:focus {
+                outline: none;
+            }
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    & > div:nth-child(2) {
+        & > textarea {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 8px;
+            resize: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        text-align: left;
+        & > .error-message {
+            color: red;
+            font-size: small;
+        }
+    }
+
+    & > div:nth-child(3) {
+        align-items: center;
+        & > div:nth-child(1) {
+            & > input {
+                background-color: white;
+                margin-bottom: 8px;
+                &:focus {
+                    outline: none;
+                }
+            }
+            text-align: left;
+            & > .error-message {
+                color: red;
+                font-size: small;
+            }
+        }
+        & > div:nth-child(2) {
+            & > .thumbnail-overview {
+                width: 250px;
+                height: 150px;
+                border: 1px dashed gray;
+                border-radius: 6px;
+                & > img {
+                    width: 100%;
+                    object-fit: cover;
+                    height: 150px;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+
+    & > div:nth-child(4) {
+        display: flex;
+        align-items: center;
+
+        margin-left: auto;
+        margin-right: 0;
+        width: 160px;
+
+        & .spinner-border {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    &-submit {
+        background-color: #e94c3d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+        width: 120px;
+        height: 40px;
+        margin-right: 0;
+        margin-left: auto;
+        
+        &:hover {
+            filter: brightness(1.2);
+        }
+    }
+}

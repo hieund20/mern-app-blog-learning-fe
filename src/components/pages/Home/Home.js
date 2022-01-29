@@ -7,6 +7,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
+  Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import editIcon from "../../../assets/icons/edit.svg";
@@ -61,6 +63,8 @@ const Home = (props) => {
     fetchPostList();
   }, []);
 
+  console.log(postList);
+
   return (
     <ContentLayout>
       <div className="home">
@@ -75,6 +79,13 @@ const Home = (props) => {
               />
               <CardContent className="post-title">
                 <p className="post-title-content">{el?.title}</p>
+                {el?.tags.length > 0 && (
+                  <Stack direction="row" spacing={1}>
+                    {el?.tags.map((tag) => (
+                      <Chip label={tag} color="primary" variant="outlined" />
+                    ))}
+                  </Stack>
+                )}
               </CardContent>
               <CardActions className="post-actions">
                 <Button size="small" onClick={() => handleViewPost(el?._id)}>

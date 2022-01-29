@@ -52,6 +52,7 @@ export const postNewPost = async (payload) => {
         content: payload.content,
         author: payload.authorId,
         thumbnailImage: payload.thumbnail,
+        tags: payload.tags
       }
     );
   } catch (err) {
@@ -69,6 +70,7 @@ export const updatePost = (payload) => {
         content: payload.content,
         author: payload.authorId,
         thumbnailImage: payload.thumbnail,
+        tags: payload.tags
       }
     );
   } catch (err) {
