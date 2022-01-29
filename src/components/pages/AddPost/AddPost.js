@@ -10,7 +10,7 @@ import { Spinner } from "reactstrap";
 import "./AddPost.scss";
 import { useDispatch, useSelector } from "react-redux";
 import TagChipsSelect from "./SubComponents/TagChipsSelect";
-import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus";
+import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
 
 const AddPost = () => {
   const {
