@@ -70,7 +70,7 @@ const AddPost = () => {
     fetchTagList();
   }, []);
 
-  console.log("tag list", tagList);
+  console.log("tag list 1", tagList);
 
   return (
     <ContentLayout>

@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
   data: [],
-  errorMessage: "",
+  status: "",
 };
 
 export const TagListReducer = (state = initialState, action) => {
@@ -10,26 +10,39 @@ export const TagListReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        errorMessage: "",
+        status: "loading",
       };
     case "GET_TAG_LIST_SUCCESS":
       return {
         ...state,
         loading: false,
         data: action.payload,
-        errorMessage: "",
+        status: "success",
       };
     case "GET_TAG_LIST_FAILED":
       return {
         ...state,
         loading: false,
-        errorMessage: "Unable to get post list from API",
+        status: "failed",
+      };
+    case "POST_TAG_LOADING":
+      return {
+        ...state,
+        loading: true,
+        status: "loading",
       };
     case "POST_TAG_SUCCESS":
       return {
         ...state,
+        data: [...state.data, action.payload],
         loading: false,
-        data: state.data.push(action.payload),
+        status: "success",
+      };
+    case "POST_TAG_FAILED":
+      return {
+        ...state,
+        loading: true,
+        status: "failed",
       };
     case "DELETE_TAG_SUCCESS":
       return {

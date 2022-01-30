@@ -6,32 +6,41 @@ export const getTagList = () => async (dispatch) => {
       type: "GET_TAG_LIST_LOADING",
     });
 
-    const res = await axios.get(
-      "https://mongo-express-learning-api.herokuapp.com/api/tags/getAllTags"
-    );
-
-    dispatch({
-      type: "GET_TAG_LIST_SUCCESS",
-      payload: res?.data,
-    });
+    await axios
+      .get(
+        "https://mongo-express-learning-api.herokuapp.com/api/tags/getAllTags"
+      )
+      .then((res) => {
+        dispatch({
+          type: "GET_TAG_LIST_SUCCESS",
+          payload: res?.data,
+        });
+      });
   } catch (err) {
-    console.log("error", err);
     dispatch({
       type: "GET_TAG_LIST_FAILED",
     });
   }
 };
 
-export const postNewTag = (payload) => {
+export const postNewTag = (value) => async (dispatch) => {
   try {
-    axios.post(
-      "https://mongo-express-learning-api.herokuapp.com/api/tags/addNewTag",
-      {
-        name: payload.name,
-      }
-    );
+    dispatch({
+      type: "POST_TAG_LOADING",
+    });
+
+    axios
+      .post(
+        "https://mongo-express-learning-api.herokuapp.com/api/tags/addNewTag",
+        {
+          name: value.name,
+        }
+      )
+      .then((res) => {
+        dispatch({ type: "POST_TAG_SUCCESS", payload: res?.data });
+      });
   } catch (err) {
-    console.log("Error when POST", err);
+    dispatch({ type: "POST_TAG_FAILED" });
   }
 };
 

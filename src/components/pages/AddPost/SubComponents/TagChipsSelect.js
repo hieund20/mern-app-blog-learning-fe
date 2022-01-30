@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Chip, MenuItem, OutlinedInput, Select } from "@mui/material";
 import { Box } from "@mui/system";
-import { useTheme } from "@emotion/react";
 import { Controller } from "react-hook-form";
 
 const ITEM_HEIGHT = 48;

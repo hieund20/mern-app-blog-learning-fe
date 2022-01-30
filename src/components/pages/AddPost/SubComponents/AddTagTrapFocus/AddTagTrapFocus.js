@@ -13,7 +13,9 @@ const styled = {
   position: "relative",
 };
 
-const AddTagTrapFocus = () => {
+const AddTagTrapFocus = (props) => {
+  const { refreshData } = props;
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [tagValue, setTagValue] = useState("");
