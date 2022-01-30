@@ -8,6 +8,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Pagination,
   Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,11 @@ const Home = (props) => {
   );
 
   const fetchPostList = async () => {
-    await dispatch(getPostList());
+    const pagination = {
+      page: 1,
+      limit: 6,
+    };
+    await dispatch(getPostList(pagination));
   };
 
   const handleViewPost = (id) => {
@@ -129,6 +134,9 @@ const Home = (props) => {
             postId={postId}
           />
         )}
+      </div>
+      <div className="pagination">
+        <Pagination count={10} shape="rounded" />
       </div>
     </ContentLayout>
   );

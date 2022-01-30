@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const getPostList = () => async (dispatch) => {
+export const getPostList = (value) => async (dispatch) => {
   try {
     dispatch({
       type: "GET_POST_LIST_LOADING",
     });
 
     const res = await axios.get(
-      "https://mongo-express-learning-api.herokuapp.com/api/posts/getAllPost"
+      `https://mongo-express-learning-api.herokuapp.com/api/posts/getAllPost?page=${value.page}&limit=${value.limit}`
     );
 
     dispatch({
@@ -52,7 +52,7 @@ export const postNewPost = async (payload) => {
         content: payload.content,
         author: payload.authorId,
         thumbnailImage: payload.thumbnail,
-        tags: payload.tags
+        tags: payload.tags,
       }
     );
   } catch (err) {
@@ -70,7 +70,7 @@ export const updatePost = (payload) => {
         content: payload.content,
         author: payload.authorId,
         thumbnailImage: payload.thumbnail,
-        tags: payload.tags
+        tags: payload.tags,
       }
     );
   } catch (err) {
@@ -78,7 +78,7 @@ export const updatePost = (payload) => {
   }
 };
 
-export const deletePost = (payload) =>  async (dispatch) => {
+export const deletePost = (payload) => async (dispatch) => {
   try {
     axios.delete(
       `https://mongo-express-learning-api.herokuapp.com/api/posts/deletePost/${payload._id}`
@@ -86,7 +86,7 @@ export const deletePost = (payload) =>  async (dispatch) => {
 
     dispatch({
       type: "DELETE_POST_SUCCESS",
-      payload: payload?._id
+      payload: payload?._id,
     });
   } catch (err) {
     console.log("Error when DELETE", err);
