@@ -9,7 +9,7 @@ import defaultImage from "../../../assets/icons/defaultImage.svg";
 import { Spinner } from "reactstrap";
 import "./AddPost.scss";
 import { useDispatch, useSelector } from "react-redux";
-import TagChipsSelect from "./SubComponents/TagChipsSelect";
+import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
 import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
 
 const AddPost = () => {

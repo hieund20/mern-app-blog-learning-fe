@@ -1,0 +1,17 @@
+.delete-tag-modal {
+    
+    & .delete-button {
+        text-transform: none;
+        float: right;
+        &:hover{
+            background-color: lightgray;
+        }
+    }
+    & .cancel-button {
+        text-transform: none;
+        float: right;
+        &:hover{
+            background-color: lightgray;
+        }
+    }
+}

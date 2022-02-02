@@ -34,6 +34,8 @@ const Home = (props) => {
   const [postId, setPostId] = useState("");
   const actionDropdownRef = useRef();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useOnClickOutside(actionDropdownRef, () =>
     setActionShow({
       ...actionShow,
@@ -43,7 +45,7 @@ const Home = (props) => {
 
   const fetchPostList = async () => {
     const pagination = {
-      page: 1,
+      page: currentPage,
       limit: 6,
     };
     await dispatch(getPostList(pagination));
@@ -64,17 +66,21 @@ const Home = (props) => {
     });
   };
 
+  const onPageChange = (e, value) => {
+    setCurrentPage(value);
+  };
+
   useEffect(() => {
     fetchPostList();
-  }, []);
+  }, [currentPage]);
 
   console.log(postList);
 
   return (
     <ContentLayout>
       <div className="home">
-        {postList?.data?.length > 0 &&
-          postList?.data?.map((el, idx) => (
+        {postList?.data?.responseData?.length > 0 &&
+          postList?.data?.responseData.map((el, idx) => (
             <Card key={el?._id} className="post">
               <CardMedia
                 component="img"
@@ -136,7 +142,11 @@ const Home = (props) => {
         )}
       </div>
       <div className="pagination">
-        <Pagination count={10} shape="rounded" />
+        <Pagination
+          count={postList?.data?.totalPage}
+          shape="rounded"
+          onChange={onPageChange}
+        />
       </div>
     </ContentLayout>
   );

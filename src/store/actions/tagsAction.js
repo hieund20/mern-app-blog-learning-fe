@@ -44,16 +44,18 @@ export const postNewTag = (value) => async (dispatch) => {
   }
 };
 
-export const deleteTag = (payload) => async (dispatch) => {
+export const deleteTag = (value) => async (dispatch) => {
   try {
-    axios.delete(
-      `https://mongo-express-learning-api.herokuapp.com/api/tags/deleteTag/${payload._id}`
-    );
-
-    dispatch({
-      type: "DELETE_TAG_SUCCESS",
-      payload: payload?._id,
-    });
+    axios
+      .delete(
+        `https://mongo-express-learning-api.herokuapp.com/api/tags/deleteTag/${value._id}`
+      )
+      .then(() => {
+        dispatch({
+          type: "DELETE_TAG_SUCCESS",
+          payload: value?._id,
+        });
+      });
   } catch (err) {
     console.log("Error when DELETE", err);
   }
