@@ -78,16 +78,18 @@ export const updatePost = (payload) => {
   }
 };
 
-export const deletePost = (payload) => async (dispatch) => {
+export const deletePost = (value) => async (dispatch) => {
   try {
-    axios.delete(
-      `https://mongo-express-learning-api.herokuapp.com/api/posts/deletePost/${payload._id}`
-    );
-
-    dispatch({
-      type: "DELETE_POST_SUCCESS",
-      payload: payload?._id,
-    });
+    axios
+      .delete(
+        `https://mongo-express-learning-api.herokuapp.com/api/posts/deletePost/${value._id}`
+      )
+      .then(() => {
+        dispatch({
+          type: "DELETE_POST_SUCCESS",
+          payload: value?._id,
+        });
+      });
   } catch (err) {
     console.log("Error when DELETE", err);
   }

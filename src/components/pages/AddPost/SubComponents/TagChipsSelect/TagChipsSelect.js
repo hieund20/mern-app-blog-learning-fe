@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Chip, MenuItem, OutlinedInput, Select } from "@mui/material";
 import { Box } from "@mui/system";
 import { Controller } from "react-hook-form";
-import removeIcon from "../../../../../assets/icons/remove.svg";
 import "./TagChipsSelect.scss";
-import { useDispatch } from "react-redux";
-import DeleteModal from "./SubComponents/DeleteModal";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -61,23 +58,8 @@ const TagChipsSelect = (props) => {
           {tagList?.data?.responseData?.map((tag, idx) => (
             <MenuItem key={idx} value={tag?.name}>
               {tag?.name}
-              <div
-                onClick={() => {
-                  setTagId(tag._id);
-                  setModalShow(true);
-                }}
-              >
-                <img src={removeIcon} alt="remove-icon" />
-              </div>
             </MenuItem>
           ))}
-          {modalShow && (
-            <DeleteModal
-              open={modalShow}
-              onClose={setModalShow}
-              tagId={tagId}
-            />
-          )}
         </Select>
       )}
     />

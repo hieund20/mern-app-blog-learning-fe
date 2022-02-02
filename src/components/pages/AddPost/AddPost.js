@@ -76,16 +76,20 @@ const AddPost = () => {
     <ContentLayout>
       <form onSubmit={handleSubmit(onSubmit)} className="add-post">
         <div className="mb-3">
-          <label>Title</label>
-          <input {...register("title", { required: true })} />
+          <input
+            {...register("title", { required: true })}
+            placeholder=" Title..."
+          />
           {errors.title && (
             <p className="error-message">This field is required</p>
           )}
         </div>
 
         <div className="mb-3">
-          <label>Content</label>
-          <textarea {...register("content", { required: true })} />
+          <textarea
+            {...register("content", { required: true })}
+            placeholder=" Content..."
+          />
           {errors.content && (
             <p className="error-message">This field is required</p>
           )}
@@ -94,7 +98,7 @@ const AddPost = () => {
         <div className="mb-5">
           <label>Tags</label>
           <TagChipsSelect tagList={tagList} control={control} name={"tags"} />
-          <AddTagTrapFocus />
+          <AddTagTrapFocus tagList={tagList} />
         </div>
 
         <div className="mb-3 d-flex">
