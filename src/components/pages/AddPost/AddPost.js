@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import ContentLayout from "../../layouts/Content/Content";
 import { useForm } from "react-hook-form";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "reactstrap";
+import defaultImage from "../../../assets/icons/defaultImage.svg";
 import { postNewPost } from "../../../store/actions/postsAction";
 import { getTagList } from "../../../store/actions/tagsAction";
-import defaultImage from "../../../assets/icons/defaultImage.svg";
-
-import { Spinner } from "reactstrap";
+import ContentLayout from "../../layouts/Content/Content";
 import "./AddPost.scss";
-import { useDispatch, useSelector } from "react-redux";
-import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
 import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
+import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
 
 const AddPost = () => {
   const {

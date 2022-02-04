@@ -1,4 +1,3 @@
-import { Avatar, TextField } from "@mui/material";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import _ from "lodash";
@@ -10,6 +9,8 @@ import { useParams } from "react-router-dom";
 import { getPostDetail } from "../../../store/actions/postsAction";
 import ContentLayout from "../../layouts/Content/Content";
 import "./PostDetail.scss";
+import Comment from "./SubComponents/Comment/Comment";
+
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -85,21 +86,7 @@ const PostDetail = (props) => {
                 </div>
               ) : (
                 <div className="post-detail-container__comment--logged">
-                  <div>
-                    <Avatar
-                      alt={userLogged?.displayName}
-                      src={userLogged?.photoURL}
-                      sx={{ marginRight: "8px" }}
-                    />
-                    <div>{userLogged?.displayName}</div>
-                  </div>
-                  <form>
-                    <textarea type="text" />
-                    <div>
-                      <input type="submit" value="Gửi bình luận" />
-                    </div>
-                  </form>
-                  <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+                  <Comment userLogged={userLogged} />
                 </div>
               )}
             </div>
