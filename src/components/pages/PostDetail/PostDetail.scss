@@ -1,11 +1,13 @@
 .post-detail {
     &-container {
         text-align: left;
+
         & > p:nth-child(2) {
             margin-bottom: 24px;
             color: gray;
             font-size: small;
         }
+
         & > div {
             width: 100%;
             height: fit-content;
@@ -14,6 +16,43 @@
                 width: 100%;
                 object-fit: contain;
                 height: 350px;
+            }
+        }
+
+        &__comment {
+            &--logout {
+            }
+
+            &--logged {
+                & > div {
+                    width: fit-content;
+                    display: flex;
+                    align-items: center;
+                }
+                & > form {
+                    margin-top: 16px;
+                    & > textarea {
+                        width: 100%;
+                        height: 100px;
+                        resize: none;
+                    }
+
+                    & > div {
+                        & > input {
+                            border: none;
+                            height: 40px;
+                            width: 130px;
+
+                            background-color: lightcoral;
+                            color: white;
+                            border-radius: 6px;
+                            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+                            &:hover {
+                                filter: brightness(1.2);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
