@@ -3,6 +3,7 @@ import "firebase/compat/auth";
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
+import AddPostButton from "./components/layouts/AddPostFButton/AddPostButton";
 import Header from "./components/layouts/Header/Header";
 import AddPost from "./components/pages/AddPost/AddPost";
 import EditPost from "./components/pages/EditPost/EditPost";
@@ -51,6 +52,7 @@ function App() {
             <Route path="/posts/editPost/:id" element={<EditPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AddPostButton/>
         </BrowserRouter>
       </Suspense>
     </div>

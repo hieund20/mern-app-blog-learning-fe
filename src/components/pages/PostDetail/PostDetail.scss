@@ -20,6 +20,11 @@
         }
 
         &__comment {
+            margin-top: 72px;
+            & > p:nth-child(1) {
+                font-weight: 500;
+            }
+
             &__list {
                 margin-top: 32px;
                 & > div:nth-child(1) {
@@ -44,6 +49,18 @@
             }
 
             &--logout {
+                display: flex;
+                align-items: center;
+                & > #firebaseui_container {
+                    width: 250px;
+
+                    padding-left: 0;
+
+                    & .firebaseui-card-content{
+                        width: 250px;
+                        padding: 0;
+                    }
+                }
             }
 
             &--logged {

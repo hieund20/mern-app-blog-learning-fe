@@ -88,7 +88,7 @@ const PostDetail = (props) => {
 
               {!isSignedIn ? (
                 <div className="post-detail-container__comment--logout">
-                  <p>Đăng nhập để bình luận</p>
+                  <div>Đăng nhập để bình luận</div>
                   <StyledFirebaseAuth
                     uiConfig={uiConfig}
                     firebaseAuth={firebase.auth()}

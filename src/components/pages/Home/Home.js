@@ -100,7 +100,7 @@ const Home = (props) => {
               </CardContent>
               <CardActions className="post-actions">
                 <Button size="small" onClick={() => handleViewPost(el?._id)}>
-                  Learn More
+                  Xem chi tiết
                 </Button>
                 <div className="action-dropdown">
                   <img
@@ -116,7 +116,7 @@ const Home = (props) => {
                     >
                       <div onClick={() => handleEditPost(el?._id)}>
                         <img src={editIcon} alt="edit-icon" />
-                        {"Edit this post"}
+                        {"Chỉnh sửa"}
                       </div>
                       <div
                         onClick={() => {
@@ -125,7 +125,7 @@ const Home = (props) => {
                         }}
                       >
                         <img src={removeIcon} alt="remove-icon" />
-                        {"Delete this post"}
+                        {"Xóa"}
                       </div>
                     </div>
                   )}
