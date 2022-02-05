@@ -8,6 +8,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Pagination,
   Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +34,8 @@ const Home = (props) => {
   const [postId, setPostId] = useState("");
   const actionDropdownRef = useRef();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useOnClickOutside(actionDropdownRef, () =>
     setActionShow({
       ...actionShow,
@@ -41,7 +44,11 @@ const Home = (props) => {
   );
 
   const fetchPostList = async () => {
-    await dispatch(getPostList());
+    const pagination = {
+      page: currentPage,
+      limit: 6,
+    };
+    await dispatch(getPostList(pagination));
   };
 
   const handleViewPost = (id) => {
@@ -59,17 +66,21 @@ const Home = (props) => {
     });
   };
 
+  const onPageChange = (e, value) => {
+    setCurrentPage(value);
+  };
+
   useEffect(() => {
     fetchPostList();
-  }, []);
+  }, [currentPage]);
 
   console.log(postList);
 
   return (
     <ContentLayout>
       <div className="home">
-        {postList?.data?.length > 0 &&
-          postList?.data?.map((el, idx) => (
+        {postList?.data?.responseData?.length > 0 &&
+          postList?.data?.responseData.map((el, idx) => (
             <Card key={el?._id} className="post">
               <CardMedia
                 component="img"
@@ -89,7 +100,7 @@ const Home = (props) => {
               </CardContent>
               <CardActions className="post-actions">
                 <Button size="small" onClick={() => handleViewPost(el?._id)}>
-                  Learn More
+                  Xem chi tiết
                 </Button>
                 <div className="action-dropdown">
                   <img
@@ -105,7 +116,7 @@ const Home = (props) => {
                     >
                       <div onClick={() => handleEditPost(el?._id)}>
                         <img src={editIcon} alt="edit-icon" />
-                        {"Edit this post"}
+                        {"Chỉnh sửa"}
                       </div>
                       <div
                         onClick={() => {
@@ -114,7 +125,7 @@ const Home = (props) => {
                         }}
                       >
                         <img src={removeIcon} alt="remove-icon" />
-                        {"Delete this post"}
+                        {"Xóa"}
                       </div>
                     </div>
                   )}
@@ -129,6 +140,13 @@ const Home = (props) => {
             postId={postId}
           />
         )}
+      </div>
+      <div className="pagination">
+        <Pagination
+          count={postList?.data?.totalPage}
+          shape="rounded"
+          onChange={onPageChange}
+        />
       </div>
     </ContentLayout>
   );

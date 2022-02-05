@@ -1,9 +1,10 @@
 import React from "react";
 import { Container } from "reactstrap";
+import "./Content.scss";
 
 const ContentLayout = (props) => {
   return (
-    <Container className="mt-5" fluid="lg">
+    <Container className="content-layout" fluid="lg">
       {props.children}
     </Container>
   );

@@ -74,4 +74,9 @@
             }
         }
     }
+
+    & ~ .pagination {
+        float: right;
+        clear: both;
+    }
 }

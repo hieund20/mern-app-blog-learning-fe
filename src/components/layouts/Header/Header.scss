@@ -1,0 +1,32 @@
+.header {
+    & .navbar {
+        & .nav-item {
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-block;
+            line-height: 20px;
+        }
+    }
+
+    & .me-auto {
+        & .link {
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.55);
+
+            &:hover {
+                color: lightgrey;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        & .navbar {
+            & .nav-item {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}

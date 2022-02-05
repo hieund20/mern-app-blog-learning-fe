@@ -3,37 +3,37 @@ const initialState = {
   data: {
     responseData: [],
   },
-  status: "",
+  errorMessage: "",
 };
 
-export const TagListReducer = (state = initialState, action) => {
+const CommentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_TAG_LIST_LOADING":
+    case "GET_COMMENT_LIST_LOADING":
       return {
         ...state,
         loading: true,
-        status: "loading",
+        errorMessage: "",
       };
-    case "GET_TAG_LIST_SUCCESS":
+    case "GET_COMMENT_LIST_SUCCESS":
       return {
         ...state,
         loading: false,
         data: action.payload,
-        status: "success",
+        errorMessage: "",
       };
-    case "GET_TAG_LIST_FAILED":
+    case "GET_COMMENT_LIST_FAILED":
       return {
         ...state,
         loading: false,
-        status: "failed",
+        errorMessage: "Unable to get comment list from API",
       };
-    case "POST_TAG_LOADING":
+    case "POST_COMMENT_LOADING":
       return {
         ...state,
         loading: true,
         status: "loading",
       };
-    case "POST_TAG_SUCCESS":
+    case "POST_COMMENT_SUCCESS":
       return {
         ...state,
         data: {
@@ -42,20 +42,20 @@ export const TagListReducer = (state = initialState, action) => {
         loading: false,
         status: "success",
       };
-    case "POST_TAG_FAILED":
+    case "POST_COMMENT_FAILED":
       return {
         ...state,
         loading: true,
         status: "failed",
       };
-    case "DELETE_TAG_SUCCESS":
+    case "DELETE_COMMENT_SUCCESS":
       return {
         ...state,
         loading: false,
         data: {
           ...state.data,
-          responseData: state.data.responseData?.filter(
-            (tag) => tag._id !== action.payload
+          responseData: state.data.responseData.filter(
+            (comment) => comment._id !== action.payload
           ),
         },
       };
@@ -63,3 +63,5 @@ export const TagListReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default CommentReducer;

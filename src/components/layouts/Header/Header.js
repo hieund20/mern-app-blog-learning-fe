@@ -1,61 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Nav,
   Navbar,
-  NavLink,
   NavbarBrand,
-  NavbarText,
   NavbarToggler,
-  NavItem,
-  UncontrolledDropdown,
+  NavItem
 } from "reactstrap";
 import logo from "../../../assets/icons/logo.png";
+import "./Header.scss";
 
 const Header = () => {
+  const [isOpenCollapse, setIsOpenCollapse] = useState(false);
+
   return (
     <header className="header">
       {/* Need to fixed top */}
-      <Navbar color="light" expand="md" light>
-        <NavbarBrand>
+      <Navbar color="light" expand="md" fixed="top" light>
+        <NavbarBrand tag={"span"}>
           <Link to={"/"}>
             <img
               src={logo}
-              style={{ width: "100%", height: "50px" }}
+              style={{ width: "100%", height: "40px" }}
               alt="logo"
             />
           </Link>
         </NavbarBrand>
-        <NavbarToggler onClick={function noRefCheck() {}} />
-        <Collapse navbar>
+        <NavbarToggler onClick={() => setIsOpenCollapse(!isOpenCollapse)} />
+        <Collapse navbar isOpen={isOpenCollapse}>
           <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink>
-                <Link to={"/"}>Home</Link>
-              </NavLink>
+            <NavItem tag={"span"}>
+              <Link to={"/"} className="link">
+                Trang chủ
+              </Link>
             </NavItem>
-            <NavItem>
-              <NavLink>
-                <Link to={"/posts/addPost"}>Add New Post</Link>
-              </NavLink>
+            <NavItem tag={"span"}>
+              <Link to={"/posts/addPost"} className="link">
+                About me
+              </Link>
             </NavItem>
-            {/* <UncontrolledDropdown inNavbar nav>
-              <DropdownToggle caret nav>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
           </Nav>
-          {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
     </header>

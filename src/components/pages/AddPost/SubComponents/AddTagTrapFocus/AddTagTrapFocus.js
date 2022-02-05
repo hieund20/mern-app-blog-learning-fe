@@ -4,8 +4,17 @@ import Box from "@mui/material/Box";
 import addIcon from "../../../../../assets/icons/add.svg";
 import { postNewTag } from "../../../../../store/actions/tagsAction";
 import "./AddTagTrapFocus.scss";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
+import removeIcon from "../../../../../assets/icons/remove.svg";
+import DeleteModal from "./SubComponents/DeleteModal";
 
 const styled = {
   display: "inline-block",
@@ -13,10 +22,15 @@ const styled = {
   position: "relative",
 };
 
-const AddTagTrapFocus = () => {
+const AddTagTrapFocus = (props) => {
+  const { tagList } = props;
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [tagValue, setTagValue] = useState("");
+
+  const [modalShow, setModalShow] = useState(false);
+  const [tagId, setTagId] = useState("");
 
   const handleAddNewTag = async () => {
     const newTag = {
@@ -49,13 +63,50 @@ const AddTagTrapFocus = () => {
               onClick={() => handleAddNewTag()}
               sx={{
                 position: "absolute",
-                bottom: 0,
+                bottom: 150,
                 marginLeft: 2,
                 textTransform: "none",
               }}
             >
               Add
             </Button>
+            {/* List Tag Scroll Down */}
+            <List
+              sx={{
+                width: "100%",
+                maxWidth: 360,
+                maxHeight: 150,
+                minHeight: 100,
+                overflow: "auto",
+                bgcolor: "background.paper",
+              }}
+            >
+              {tagList?.data?.responseData?.map((tag, idx) => (
+                <ListItem
+                  key={idx}
+                  disableGutters
+                  secondaryAction={
+                    <IconButton
+                      onClick={() => {
+                        setTagId(tag._id);
+                        setModalShow(true);
+                      }}
+                    >
+                      <img src={removeIcon} alt="remove-icon" />
+                    </IconButton>
+                  }
+                >
+                  <ListItemText primary={`${tag?.name}`} />
+                </ListItem>
+              ))}
+            </List>
+            {modalShow && (
+              <DeleteModal
+                open={modalShow}
+                onClose={setModalShow}
+                tagId={tagId}
+              />
+            )}
           </Box>
         </TrapFocus>
       )}

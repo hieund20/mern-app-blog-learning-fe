@@ -1,46 +1,49 @@
 import axios from "axios";
 
-export const getTagList = () => async (dispatch) => {
+export const getCommentList = (value) => async (dispatch) => {
   try {
     dispatch({
-      type: "GET_TAG_LIST_LOADING",
+      type: "GET_COMMENT_LIST_LOADING",
     });
 
     await axios
       .get(
-        "https://mongo-express-learning-api.herokuapp.com/api/tags/getAllTags"
+        `https://mongo-express-learning-api.herokuapp.com/api/comments/getAllComments?page=${value.page}&limit=${value.limit}`
       )
       .then((res) => {
         dispatch({
-          type: "GET_TAG_LIST_SUCCESS",
+          type: "GET_COMMENT_LIST_SUCCESS",
           payload: res?.data,
         });
       });
   } catch (err) {
     dispatch({
-      type: "GET_TAG_LIST_FAILED",
+      type: "GET_COMMENT_LIST_FAILED",
     });
   }
 };
 
-export const postNewTag = (value) => async (dispatch) => {
+export const postNewComment = (value) => async (dispatch) => {
   try {
     dispatch({
-      type: "POST_TAG_LOADING",
+      type: "POST_COMMENT_LOADING",
     });
 
     axios
       .post(
-        "https://mongo-express-learning-api.herokuapp.com/api/tags/addNewTag",
+        "https://mongo-express-learning-api.herokuapp.com/api/comments/addNewComment",
         {
-          name: value.name,
+          content: value.content,
+          post: value.postId,
+          author: value.author,
+          likeCount: value.likeCount,
         }
       )
       .then((res) => {
-        dispatch({ type: "POST_TAG_SUCCESS", payload: res?.data });
+        dispatch({ type: "POST_COMMENT_SUCCESS", payload: res?.data });
       });
   } catch (err) {
-    dispatch({ type: "POST_TAG_FAILED" });
+    dispatch({ type: "POST_COMMENT_FAILED" });
   }
 };
 
