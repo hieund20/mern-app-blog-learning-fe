@@ -104,17 +104,22 @@ const PostDetail = (props) => {
                 commentList?.data?.responseData?.length > 0 &&
                 commentList?.data?.responseData?.map((comment) => (
                   <div className="post-detail-container__comment__list">
-                    <div>
-                      <Avatar
-                        alt={comment?.author?.displayName}
-                        src={comment?.author?.photoURL}
-                        sx={{ marginRight: "8px" }}
-                      />
-                      <div className="author-name">
-                        {comment?.author?.displayName || "Người dùng ẩn danh"}
-                      </div>
-                    </div>
-                    <div>{comment?.content}</div>
+                    {comment?.post === id && (
+                      <>
+                        <div>
+                          <Avatar
+                            alt={comment?.author?.displayName}
+                            src={comment?.author?.photoURL}
+                            sx={{ marginRight: "8px" }}
+                          />
+                          <div className="author-name">
+                            {comment?.author?.displayName ||
+                              "Người dùng ẩn danh"}
+                          </div>
+                        </div>
+                        <div>{comment?.content}</div>
+                      </>
+                    )}
                   </div>
                 ))}
               <div className="pagination">
