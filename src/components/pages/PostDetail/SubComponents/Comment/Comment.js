@@ -4,6 +4,8 @@ import "firebase/compat/auth";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { postNewComment } from "../../../../../store/actions/commentActions";
 
 const Comment = (props) => {
   const { userLogged } = props;
@@ -17,14 +19,22 @@ const Comment = (props) => {
       comment: "",
     },
   });
+  const { id } = useParams();
 
   const onSubmit = async (data) => {
     console.log("Submit form", data);
 
-    const newComment = {};
+    const newComment = {
+      content: data.comment,
+      postId: id,
+      author: userLogged,
+      likeCount: 0,
+    };
 
-    await dispatch();
+    await dispatch(postNewComment(newComment));
   };
+
+  console.log("user", userLogged);
 
   return (
     <>
