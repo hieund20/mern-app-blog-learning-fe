@@ -20,7 +20,7 @@ const style = {
 };
 
 const ConfirmModal = (props) => {
-  const { open, onClose, postId } = props;
+  const { open, onClose, postId, refreshData } = props;
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -34,6 +34,8 @@ const ConfirmModal = (props) => {
     await dispatch(deletePost(payload));
 
     onClose(false);
+    //Refresh data to update new post list ui
+    refreshData();
   };
 
   return (
@@ -51,8 +53,12 @@ const ConfirmModal = (props) => {
         <Typography id="modal-modal-description" sx={{ mt: 2, mb: 5 }}>
           Are you sure want to delete this post?
         </Typography>
-        <Button className="cancel-button" onClick={() => onClose(false)}>Cancel</Button>
-        <Button className="delete-button" onClick={() => handleDeletePost()}>Delete</Button>
+        <Button className="cancel-button" onClick={() => onClose(false)}>
+          Cancel
+        </Button>
+        <Button className="delete-button" onClick={() => handleDeletePost()}>
+          Delete
+        </Button>
       </Box>
     </Modal>
   );

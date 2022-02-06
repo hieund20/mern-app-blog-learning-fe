@@ -6,11 +6,11 @@ import {
   CardMedia,
   Chip,
   Pagination,
-  Stack,
+  Stack
 } from "@mui/material";
 import "firebase/compat/auth";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import editIcon from "../../../assets/icons/edit.svg";
 import moreIcon from "../../../assets/icons/more.svg";
@@ -23,7 +23,6 @@ import DeleteModal from "./SubComponent/DeleteModal";
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  // const postList = useSelector((state) => state.postList);
   const navigate = useNavigate();
   const [postList, setPostList] = useState([]);
 
@@ -36,6 +35,7 @@ const Home = (props) => {
   const actionDropdownRef = useRef();
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
 
   useOnClickOutside(actionDropdownRef, () =>
     setActionShow({
@@ -53,6 +53,7 @@ const Home = (props) => {
       getPostList(pagination).then((res) => {
         console.log("res post", res);
         if (res?.status === "success") {
+          setTotalPage(res?.totalPage);
           setPostList(res?.responseData);
         }
       })
@@ -146,15 +147,12 @@ const Home = (props) => {
             open={modalShow}
             onClose={setModalShow}
             postId={postId}
+            refreshData={fetchPostList}
           />
         )}
       </div>
       <div className="pagination">
-        <Pagination
-          count={postList?.data?.totalPage}
-          shape="rounded"
-          onChange={onPageChange}
-        />
+        <Pagination count={totalPage} shape="rounded" onChange={onPageChange} />
       </div>
     </ContentLayout>
   );
