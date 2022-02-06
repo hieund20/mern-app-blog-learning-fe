@@ -31,15 +31,23 @@ const PostDetail = (props) => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const postDetail = useSelector((state) => state.postDetail);
-  const commentList = useSelector((state) => state.commentList);
+  const [postDetail, setPostDetail] = useState([]);
+
+  const [commentList, setCommentList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
 
   const fetchPostDetail = async () => {
     const payload = {
       _id: id,
     };
-    await dispatch(getPostDetail(payload));
+    await dispatch(
+      getPostDetail(payload).then((res) => {
+        console.log("res post detail", res);
+        //Need to add status to API
+        setPostDetail(res);
+      })
+    );
   };
 
   const fetchCommentList = async () => {
@@ -47,7 +55,15 @@ const PostDetail = (props) => {
       page: currentPage,
       limit: 5,
     };
-    await dispatch(getCommentList(pagination));
+    await dispatch(
+      getCommentList(pagination).then((res) => {
+        console.log("res comment", res);
+        if (res?.status === "success") {
+          setCommentList(res?.responseData);
+          setTotalPage(res?.totalPage);
+        }
+      })
+    );
   };
 
   useEffect(() => {
@@ -64,24 +80,23 @@ const PostDetail = (props) => {
     setUserLogged(firebase?.auth()?.currentUser?.multiFactor?.user);
   }, []);
 
-  console.log(postDetail);
+  console.log("post detail", postDetail);
+  console.log("comment list", commentList);
 
   return (
     <ContentLayout>
       <div className="post-detail">
-        {postDetail && !_.isEmpty(postDetail?.data) && (
+        {postDetail && (
           <div className="post-detail-container">
-            <h2>{postDetail?.data?.title}</h2>
+            <h2>{postDetail?.title}</h2>
             <p>
-              {postDetail?.data?.author} -{" "}
-              {moment(postDetail?.data?.createdAt).format(
-                "DD/MM/YYYY, h:mm:ss A"
-              )}
+              {postDetail?.author} -{" "}
+              {moment(postDetail?.createdAt).format("DD/MM/YYYY, h:mm:ss A")}
             </p>
             <div>
-              <img src={postDetail?.data?.thumbnailImage} alt="thumbnail" />
+              <img src={postDetail?.thumbnailImage} alt="thumbnail" />
             </div>
-            <p>{postDetail?.data?.content}</p>
+            <p>{postDetail?.content}</p>
             <div className="post-detail-container__comment">
               <p>Bình luận</p>
 
@@ -99,9 +114,8 @@ const PostDetail = (props) => {
                 </div>
               )}
               {/* CommentList */}
-              {commentList &&
-                commentList?.data?.responseData?.length > 0 &&
-                commentList?.data?.responseData?.map((comment) => (
+              {commentList?.length > 0 &&
+                commentList?.map((comment) => (
                   <div className="post-detail-container__comment__list">
                     {comment?.post === id && (
                       <>
@@ -123,7 +137,7 @@ const PostDetail = (props) => {
                 ))}
               <div className="pagination">
                 <Pagination
-                  count={commentList?.data?.totalPage}
+                  count={totalPage}
                   shape="rounded"
                   onChange={(e, value) => setCurrentPage(value)}
                 />
