@@ -1,60 +1,32 @@
-import axios from "axios";
+import axiosClient from "../../helpers/axiosClient";
 
-export const getPostList = (value) => async (dispatch) => {
+export const getPostList = (payload) => {
   try {
-    dispatch({
-      type: "GET_POST_LIST_LOADING",
-    });
-
-    const res = await axios.get(
-      `https://mongo-express-learning-api.herokuapp.com/api/posts/getAllPost?page=${value.page}&limit=${value.limit}`
+    return axiosClient.get(
+      `/posts/getAllPost?page=${payload.page}&limit=${payload.limit}`
     );
-
-    dispatch({
-      type: "GET_POST_LIST_SUCCESS",
-      payload: res?.data,
-    });
   } catch (err) {
-    console.log("error", err);
-    dispatch({
-      type: "GET_POST_LIST_FAILED",
-    });
+    console.log(err);
   }
 };
 
-export const getPostDetail = (payload) => async (dispatch) => {
+export const getPostDetail = (payload) => {
   try {
-    dispatch({
-      type: "GET_POST_DETAIL_LOADING",
-    });
-
-    const res = await axios.get(
-      `https://mongo-express-learning-api.herokuapp.com/api/posts/getAllPost/${payload._id}`
-    );
-
-    dispatch({
-      type: "GET_POST_DETAIL_SUCCESS",
-      payload: res?.data,
-    });
+    return axiosClient.get(`/posts/getAllPost/${payload._id}`);
   } catch (err) {
-    dispatch({
-      type: "GET_POST_DETAIL_FAILED",
-    });
+    console.log(err);
   }
 };
 
 export const postNewPost = async (payload) => {
   try {
-    axios.post(
-      "https://mongo-express-learning-api.herokuapp.com/api/posts/addNewPost",
-      {
-        title: payload.title,
-        content: payload.content,
-        author: payload.authorId,
-        thumbnailImage: payload.thumbnail,
-        tags: payload.tags,
-      }
-    );
+    axiosClient.post("/posts/addNewPost", {
+      title: payload.title,
+      content: payload.content,
+      author: payload.authorId,
+      thumbnailImage: payload.thumbnail,
+      tags: payload.tags,
+    });
   } catch (err) {
     console.log("Error when POST", err);
   }
@@ -62,17 +34,14 @@ export const postNewPost = async (payload) => {
 
 export const updatePost = (payload) => {
   try {
-    axios.patch(
-      `https://mongo-express-learning-api.herokuapp.com/api/posts/updatePost`,
-      {
-        _id: payload._id,
-        title: payload.title,
-        content: payload.content,
-        author: payload.authorId,
-        thumbnailImage: payload.thumbnail,
-        tags: payload.tags,
-      }
-    );
+    axiosClient.patch(`/posts/updatePost`, {
+      _id: payload._id,
+      title: payload.title,
+      content: payload.content,
+      author: payload.authorId,
+      thumbnailImage: payload.thumbnail,
+      tags: payload.tags,
+    });
   } catch (err) {
     console.log("Error when PATCH", err);
   }
@@ -80,16 +49,12 @@ export const updatePost = (payload) => {
 
 export const deletePost = (value) => async (dispatch) => {
   try {
-    axios
-      .delete(
-        `https://mongo-express-learning-api.herokuapp.com/api/posts/deletePost/${value._id}`
-      )
-      .then(() => {
-        dispatch({
-          type: "DELETE_POST_SUCCESS",
-          payload: value?._id,
-        });
+    axiosClient.delete(`/posts/deletePost/${value._id}`).then(() => {
+      dispatch({
+        type: "DELETE_POST_SUCCESS",
+        payload: value?._id,
       });
+    });
   } catch (err) {
     console.log("Error when DELETE", err);
   }

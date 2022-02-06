@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { Avatar } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Collapse,
@@ -6,17 +7,18 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
-  NavItem
+  NavItem,
 } from "reactstrap";
 import logo from "../../../assets/icons/logo.png";
 import "./Header.scss";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
 const Header = () => {
   const [isOpenCollapse, setIsOpenCollapse] = useState(false);
 
   return (
     <header className="header">
-      {/* Need to fixed top */}
       <Navbar color="light" expand="md" fixed="top" light>
         <NavbarBrand tag={"span"}>
           <Link to={"/"}>
@@ -38,6 +40,11 @@ const Header = () => {
             <NavItem tag={"span"}>
               <Link to={"/posts/addPost"} className="link">
                 About me
+              </Link>
+            </NavItem>
+            <NavItem tag={"span"}>
+              <Link to={"/login"} className="link">
+                Đăng nhập
               </Link>
             </NavItem>
           </Nav>
