@@ -8,6 +8,7 @@ import Header from "./components/layouts/Header/Header";
 import AddPost from "./components/pages/AddPost/AddPost";
 import EditPost from "./components/pages/EditPost/EditPost";
 import Home from "./components/pages/Home/Home";
+import Login from "./components/pages/Login/Login";
 import NotFound from "./components/pages/NotFound/NotFound";
 import PostDetail from "./components/pages/PostDetail/PostDetail";
 
@@ -50,9 +51,10 @@ function App() {
             />
             <Route path="/posts/addPost" element={<AddPost />} />
             <Route path="/posts/editPost/:id" element={<EditPost />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <AddPostButton/>
+          <AddPostButton />
         </BrowserRouter>
       </Suspense>
     </div>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosClient from "../../helpers/axiosClient";
 
 export const getCommentList = (value) => async (dispatch) => {
   try {
@@ -6,14 +7,13 @@ export const getCommentList = (value) => async (dispatch) => {
       type: "GET_COMMENT_LIST_LOADING",
     });
 
-    await axios
-      .get(
-        `https://mongo-express-learning-api.herokuapp.com/api/comments/getAllComments?page=${value.page}&limit=${value.limit}`
-      )
+    await axiosClient
+      .get(`/comments/getAllComments?page=${value.page}&limit=${value.limit}`)
       .then((res) => {
+        console.log("res comment", res);
         dispatch({
           type: "GET_COMMENT_LIST_SUCCESS",
-          payload: res?.data,
+          payload: res,
         });
       });
   } catch (err) {
@@ -29,37 +29,30 @@ export const postNewComment = (value) => async (dispatch) => {
       type: "POST_COMMENT_LOADING",
     });
 
-    axios
-      .post(
-        "https://mongo-express-learning-api.herokuapp.com/api/comments/addNewComment",
-        {
-          content: value.content,
-          post: value.postId,
-          author: value.author,
-          likeCount: value.likeCount,
-        }
-      )
+    axiosClient
+      .post("/comments/addNewComment", {
+        content: value.content,
+        post: value.postId,
+        author: value.author,
+        likeCount: value.likeCount,
+      })
       .then((res) => {
-        dispatch({ type: "POST_COMMENT_SUCCESS", payload: res?.data });
+        dispatch({ type: "POST_COMMENT_SUCCESS", payload: res });
       });
   } catch (err) {
     dispatch({ type: "POST_COMMENT_FAILED" });
   }
 };
 
-export const deleteTag = (value) => async (dispatch) => {
-  try {
-    axios
-      .delete(
-        `https://mongo-express-learning-api.herokuapp.com/api/tags/deleteTag/${value._id}`
-      )
-      .then(() => {
-        dispatch({
-          type: "DELETE_TAG_SUCCESS",
-          payload: value?._id,
-        });
-      });
-  } catch (err) {
-    console.log("Error when DELETE", err);
-  }
-};
+// export const deleteTag = (value) => async (dispatch) => {
+//   try {
+//     axiosClient.delete(`/tags/deleteTag/${value._id}`).then(() => {
+//       dispatch({
+//         type: "DELETE_TAG_SUCCESS",
+//         payload: value?._id,
+//       });
+//     });
+//   } catch (err) {
+//     console.log("Error when DELETE", err);
+//   }
+// };

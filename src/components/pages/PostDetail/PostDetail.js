@@ -64,8 +64,7 @@ const PostDetail = (props) => {
     setUserLogged(firebase?.auth()?.currentUser?.multiFactor?.user);
   }, []);
 
-  console.log("user logged", userLogged);
-  console.log("comment list", commentList);
+  console.log(postDetail);
 
   return (
     <ContentLayout>

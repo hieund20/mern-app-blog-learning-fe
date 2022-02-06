@@ -1,8 +1,6 @@
 const initialState = {
   loading: false,
-  data: {
-    responseData: [],
-  },
+  data: [],
   status: "",
 };
 
@@ -36,9 +34,7 @@ export const TagListReducer = (state = initialState, action) => {
     case "POST_TAG_SUCCESS":
       return {
         ...state,
-        data: {
-          responseData: [...state.data.responseData, action.payload],
-        },
+        data: [...state.data, action.payload],
         loading: false,
         status: "success",
       };
@@ -52,12 +48,7 @@ export const TagListReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: {
-          ...state.data,
-          responseData: state.data.responseData?.filter(
-            (tag) => tag._id !== action.payload
-          ),
-        },
+        data: state.data?.filter((tag) => tag._id !== action.payload),
       };
     default:
       return state;

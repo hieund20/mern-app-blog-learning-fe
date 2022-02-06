@@ -1,8 +1,6 @@
 const initialState = {
   loading: false,
-  data: {
-    responseData: [],
-  },
+  data: [],
   errorMessage: "",
 };
 
@@ -31,12 +29,9 @@ export const PostListReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: {
-          ...state.data,
-          responseData: state.data.responseData.filter(
-            (post) => post._id !== action.payload
-          ),
-        },
+        data: state.data.filter(
+          (post) => post._id !== action.payload
+        ),
       };
     default:
       return state;

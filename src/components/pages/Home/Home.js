@@ -1,6 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPostList, deletePost } from "../../../store/actions/postsAction";
 import {
   Button,
   Card,
@@ -11,20 +8,24 @@ import {
   Pagination,
   Stack,
 } from "@mui/material";
+import "firebase/compat/auth";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import editIcon from "../../../assets/icons/edit.svg";
-import removeIcon from "../../../assets/icons/remove.svg";
 import moreIcon from "../../../assets/icons/more.svg";
-import ContentLayout from "../../layouts/Content/Content";
-import DeleteModal from "./SubComponent/DeleteModal";
+import removeIcon from "../../../assets/icons/remove.svg";
 import { useOnClickOutside } from "../../../helpers/hooks/customHook";
-
+import { getPostList } from "../../../store/actions/postsAction";
+import ContentLayout from "../../layouts/Content/Content";
 import "./Home.scss";
+import DeleteModal from "./SubComponent/DeleteModal";
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.postList);
+  // const postList = useSelector((state) => state.postList);
   const navigate = useNavigate();
+  const [postList, setPostList] = useState([]);
 
   const [actionShow, setActionShow] = useState({
     idx: "",
@@ -48,7 +49,14 @@ const Home = (props) => {
       page: currentPage,
       limit: 6,
     };
-    await dispatch(getPostList(pagination));
+    await dispatch(
+      getPostList(pagination).then((res) => {
+        console.log("res post", res);
+        if (res?.status === "success") {
+          setPostList(res?.responseData);
+        }
+      })
+    );
   };
 
   const handleViewPost = (id) => {
@@ -79,8 +87,8 @@ const Home = (props) => {
   return (
     <ContentLayout>
       <div className="home">
-        {postList?.data?.responseData?.length > 0 &&
-          postList?.data?.responseData.map((el, idx) => (
+        {postList?.length > 0 &&
+          postList?.map((el, idx) => (
             <Card key={el?._id} className="post">
               <CardMedia
                 component="img"
