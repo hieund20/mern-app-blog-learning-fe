@@ -6,7 +6,7 @@ import {
   CardMedia,
   Chip,
   Pagination,
-  Stack
+  Stack,
 } from "@mui/material";
 import "firebase/compat/auth";
 import React, { useEffect, useRef, useState } from "react";
@@ -82,8 +82,6 @@ const Home = (props) => {
   useEffect(() => {
     fetchPostList();
   }, [currentPage]);
-
-  console.log(postList);
 
   return (
     <ContentLayout>

@@ -1,25 +1,12 @@
-import axios from "axios";
 import axiosClient from "../../helpers/axiosClient";
 
-export const getCommentList = (value) => async (dispatch) => {
+export const getCommentList = (payload) => {
   try {
-    dispatch({
-      type: "GET_COMMENT_LIST_LOADING",
-    });
-
-    await axiosClient
-      .get(`/comments/getAllComments?page=${value.page}&limit=${value.limit}`)
-      .then((res) => {
-        console.log("res comment", res);
-        dispatch({
-          type: "GET_COMMENT_LIST_SUCCESS",
-          payload: res,
-        });
-      });
+    return axiosClient.get(
+      `/comments/getAllComments?page=${payload.page}&limit=${payload.limit}`
+    );
   } catch (err) {
-    dispatch({
-      type: "GET_COMMENT_LIST_FAILED",
-    });
+    console.log(err);
   }
 };
 
