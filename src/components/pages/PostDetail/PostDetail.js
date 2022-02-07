@@ -26,8 +26,7 @@ const uiConfig = {
 };
 
 const PostDetail = (props) => {
-  const { isSignedIn } = props;
-  const [userLogged, setUserLogged] = useState(null);
+  const { isSignedIn, userLogged } = props;
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -74,14 +73,9 @@ const PostDetail = (props) => {
     fetchCommentList();
   }, [currentPage]);
 
-  useEffect(() => {
-    if (!isSignedIn) return;
-
-    setUserLogged(firebase?.auth()?.currentUser?.multiFactor?.user);
-  }, []);
-
-  console.log("post detail", postDetail);
-  console.log("comment list", commentList);
+  // console.log("post detail", postDetail);
+  // console.log("comment list", commentList);
+  console.log("[POST DETAIL] Check logged user infor ", userLogged);
 
   return (
     <ContentLayout>
@@ -89,10 +83,17 @@ const PostDetail = (props) => {
         {postDetail && (
           <div className="post-detail-container">
             <h2>{postDetail?.title}</h2>
-            <p>
-              {postDetail?.author} -{" "}
+            <div className="post-detail-container__author">
+              <div>
+                <Avatar
+                  alt={userLogged?.displayName}
+                  src={userLogged?.photoURL}
+                  sx={{ marginRight: "8px" }}
+                />
+                <div className="author-name">{userLogged?.displayName}</div>
+              </div>
               {moment(postDetail?.createdAt).format("DD/MM/YYYY, h:mm:ss A")}
-            </p>
+            </div>
             <div>
               <img src={postDetail?.thumbnailImage} alt="thumbnail" />
             </div>
