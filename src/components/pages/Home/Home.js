@@ -20,8 +20,11 @@ import { getPostList } from "../../../store/actions/postsAction";
 import ContentLayout from "../../layouts/Content/Content";
 import "./Home.scss";
 import DeleteModal from "./SubComponent/DeleteModal";
+import { AUTHOR_UID } from "../../../constants/constants";
 
 const Home = (props) => {
+  const { isSignedIn, userLogged } = props;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [postList, setPostList] = useState([]);
@@ -83,6 +86,9 @@ const Home = (props) => {
     fetchPostList();
   }, [currentPage]);
 
+  console.log("[HOME PAGE] Check user login", isSignedIn);
+  console.log("[HOME PAGE] Check logged user uid", userLogged?.uid);
+
   return (
     <ContentLayout>
       <div className="home">
@@ -109,34 +115,36 @@ const Home = (props) => {
                 <Button size="small" onClick={() => handleViewPost(el?._id)}>
                   Xem chi tiết
                 </Button>
-                <div className="action-dropdown">
-                  <img
-                    src={moreIcon}
-                    alt=""
-                    onClick={() => handleShowActionDropdown(idx)}
-                  />
-                  {actionShow.idx === idx && actionShow.show && (
-                    <div
-                      className="action-dropdown-items"
-                      key={idx}
-                      ref={actionDropdownRef}
-                    >
-                      <div onClick={() => handleEditPost(el?._id)}>
-                        <img src={editIcon} alt="edit-icon" />
-                        {"Chỉnh sửa"}
-                      </div>
+                {isSignedIn && userLogged?.uid === AUTHOR_UID && (
+                  <div className="action-dropdown">
+                    <img
+                      src={moreIcon}
+                      alt=""
+                      onClick={() => handleShowActionDropdown(idx)}
+                    />
+                    {actionShow.idx === idx && actionShow.show && (
                       <div
-                        onClick={() => {
-                          setPostId(el?._id);
-                          setModalShow(true);
-                        }}
+                        className="action-dropdown-items"
+                        key={idx}
+                        ref={actionDropdownRef}
                       >
-                        <img src={removeIcon} alt="remove-icon" />
-                        {"Xóa"}
+                        <div onClick={() => handleEditPost(el?._id)}>
+                          <img src={editIcon} alt="edit-icon" />
+                          {"Chỉnh sửa"}
+                        </div>
+                        <div
+                          onClick={() => {
+                            setPostId(el?._id);
+                            setModalShow(true);
+                          }}
+                        >
+                          <img src={removeIcon} alt="remove-icon" />
+                          {"Xóa"}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </CardActions>
             </Card>
           ))}

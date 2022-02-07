@@ -47,15 +47,10 @@ export const updatePost = (payload) => {
   }
 };
 
-export const deletePost = (value) => async (dispatch) => {
+export const deletePost = (payload) => {
   try {
-    axiosClient.delete(`/posts/deletePost/${value._id}`).then(() => {
-      dispatch({
-        type: "DELETE_POST_SUCCESS",
-        payload: value?._id,
-      });
-    });
+    axiosClient.delete(`/posts/deletePost/${payload._id}`);
   } catch (err) {
-    console.log("Error when DELETE", err);
+    console.log(err);
   }
 };

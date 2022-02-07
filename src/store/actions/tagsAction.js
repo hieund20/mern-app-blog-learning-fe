@@ -1,53 +1,27 @@
 import axiosClient from "../../helpers/axiosClient";
 
-export const getTagList = () => async (dispatch) => {
+export const getTagList = () => {
   try {
-    dispatch({
-      type: "GET_TAG_LIST_LOADING",
-    });
-
-    await axiosClient.get("/tags/getAllTags").then((res) => {
-      console.log("tag list", res);
-      dispatch({
-        type: "GET_TAG_LIST_SUCCESS",
-        payload: res,
-      });
-    });
+    return axiosClient.get("/tags/getAllTags");
   } catch (err) {
-    dispatch({
-      type: "GET_TAG_LIST_FAILED",
-    });
+    console.log(err);
   }
 };
 
-export const postNewTag = (value) => async (dispatch) => {
+export const postNewTag = (payload) => {
   try {
-    dispatch({
-      type: "POST_TAG_LOADING",
+    axiosClient.post("/tags/addNewTag", {
+      name: payload.name,
     });
-
-    axiosClient
-      .post("/tags/addNewTag", {
-        name: value.name,
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch({ type: "POST_TAG_SUCCESS", payload: res });
-      });
   } catch (err) {
-    dispatch({ type: "POST_TAG_FAILED" });
+    console.log(err);
   }
 };
 
-export const deleteTag = (value) => async (dispatch) => {
+export const deleteTag = (payload) => {
   try {
-    axiosClient.delete(`/tags/deleteTag/${value._id}`).then(() => {
-      dispatch({
-        type: "DELETE_TAG_SUCCESS",
-        payload: value?._id,
-      });
-    });
+    axiosClient.delete(`/tags/deleteTag/${payload._id}`);
   } catch (err) {
-    console.log("Error when DELETE", err);
+    console.log(err);
   }
 };

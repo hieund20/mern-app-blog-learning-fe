@@ -26,13 +26,22 @@ const AddPost = () => {
   });
 
   const dispatch = useDispatch();
-  const tagList = useSelector((state) => state.tagList);
+  const [tagList, setTagList] = useState([]);
+  const [tagCount, setTagCount] = useState(0);
 
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchTagList = async () => {
-    await dispatch(getTagList());
+    await dispatch(
+      getTagList().then((res) => {
+        console.log("res tag", res);
+        if (res?.status === "success") {
+          setTagList(res?.responseData);
+          setTagCount(res?.count);
+        }
+      })
+    );
   };
 
   const onChangeChooseFile = (e) => {

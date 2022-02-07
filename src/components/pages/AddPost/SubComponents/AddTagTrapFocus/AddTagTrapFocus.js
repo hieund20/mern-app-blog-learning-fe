@@ -81,7 +81,7 @@ const AddTagTrapFocus = (props) => {
                 bgcolor: "background.paper",
               }}
             >
-              {tagList?.data?.responseData?.map((tag, idx) => (
+              {tagList?.map((tag, idx) => (
                 <ListItem
                   key={idx}
                   disableGutters

@@ -7,11 +7,11 @@ const getFirebaseToken = async () => {
   const currentUser = firebase.auth().currentUser;
   if (currentUser) return currentUser.getIdToken();
 
-  // const hasRememberAccount = localStorage.getItem(
-  //   "firebaseui::rememberedAccounts"
-  // );
-  // //Don't have token - Not logged in
-  // if (!hasRememberAccount) return null;
+  const hasRememberAccount = localStorage.getItem(
+    "firebaseui::rememberedAccounts"
+  );
+  //Don't have token - Not logged in
+  if (!hasRememberAccount) return null;
 
   //Logged in but current user is not fetched => wait 10s
   return new Promise((resolve, reject) => {
@@ -19,6 +19,8 @@ const getFirebaseToken = async () => {
       reject(null);
       console.log("Reject timeout");
     }, 10000);
+
+    console.log("reject time out 2");
 
     const unregisterAuthObserver = firebase
       .auth()
