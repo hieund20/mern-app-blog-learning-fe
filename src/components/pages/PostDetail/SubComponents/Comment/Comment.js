@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { postNewComment } from "../../../../../store/actions/commentActions";
 
 const Comment = (props) => {
-  const { userLogged } = props;
+  const { userLogged, refreshData } = props;
   const dispatch = useDispatch();
   const {
     register,
@@ -32,6 +32,7 @@ const Comment = (props) => {
     };
 
     await dispatch(postNewComment(newComment));
+    refreshData();
   };
 
   console.log("user", userLogged);

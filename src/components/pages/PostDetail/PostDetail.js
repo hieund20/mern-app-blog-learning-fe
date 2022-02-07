@@ -110,7 +110,10 @@ const PostDetail = (props) => {
                 </div>
               ) : (
                 <div className="post-detail-container__comment--logged">
-                  <Comment userLogged={userLogged} />
+                  <Comment
+                    userLogged={userLogged}
+                    refreshData={fetchCommentList}
+                  />
                 </div>
               )}
               {/* CommentList */}

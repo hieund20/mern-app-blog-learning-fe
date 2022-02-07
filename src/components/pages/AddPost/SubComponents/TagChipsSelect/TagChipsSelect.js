@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { Chip, MenuItem, OutlinedInput, Select } from "@mui/material";
 import { Box } from "@mui/system";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import "./TagChipsSelect.scss";
 
@@ -18,9 +18,6 @@ const MenuProps = {
 const TagChipsSelect = (props) => {
   const { tagList, control, name } = props;
   const [selected, setSelected] = useState([]);
-
-  const [modalShow, setModalShow] = useState(false);
-  const [tagId, setTagId] = useState("");
 
   const handleChange = (e) => {
     const {
@@ -55,7 +52,7 @@ const TagChipsSelect = (props) => {
           )}
           MenuProps={MenuProps}
         >
-          {tagList?.data?.responseData?.map((tag, idx) => (
+          {tagList?.map((tag, idx) => (
             <MenuItem key={idx} value={tag?.name}>
               {tag?.name}
             </MenuItem>

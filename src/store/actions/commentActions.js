@@ -1,4 +1,5 @@
 import axiosClient from "../../helpers/axiosClient";
+import { GET_COMMENT_LIST } from "./actionTypes";
 
 export const getCommentList = (payload) => {
   try {
@@ -10,24 +11,16 @@ export const getCommentList = (payload) => {
   }
 };
 
-export const postNewComment = (value) => async (dispatch) => {
+export const postNewComment = (payload) => {
   try {
-    dispatch({
-      type: "POST_COMMENT_LOADING",
+    axiosClient.post("/comments/addNewComment", {
+      content: payload.content,
+      post: payload.postId,
+      author: payload.author,
+      likeCount: payload.likeCount,
     });
-
-    axiosClient
-      .post("/comments/addNewComment", {
-        content: value.content,
-        post: value.postId,
-        author: value.author,
-        likeCount: value.likeCount,
-      })
-      .then((res) => {
-        dispatch({ type: "POST_COMMENT_SUCCESS", payload: res });
-      });
   } catch (err) {
-    dispatch({ type: "POST_COMMENT_FAILED" });
+    console.log(err);
   }
 };
 
