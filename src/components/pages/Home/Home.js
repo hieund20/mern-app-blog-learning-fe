@@ -15,7 +15,10 @@ import { useNavigate } from "react-router-dom";
 import editIcon from "../../../assets/icons/edit.svg";
 import moreIcon from "../../../assets/icons/more.svg";
 import removeIcon from "../../../assets/icons/remove.svg";
-import { useOnClickOutside } from "../../../helpers/hooks/customHook";
+import clockIcon from "../../../assets/icons/schedule.svg";
+import eyeIcon from "../../../assets/icons/eye.svg";
+import likeIcon from "../../../assets/icons/like.svg";
+import { useOnClickOutside, useHover } from "../../../helpers/hooks/customHook";
 import { getPostList } from "../../../store/actions/postsAction";
 import ContentLayout from "../../layouts/Content/Content";
 import "./Home.scss";
@@ -39,6 +42,8 @@ const Home = (props) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+
+  const [isHoverRef, setHoverRef] = useState();
 
   useOnClickOutside(actionDropdownRef, () =>
     setActionShow({
@@ -88,65 +93,68 @@ const Home = (props) => {
 
   console.log("[HOME PAGE] Check user login", isSignedIn);
   console.log("[HOME PAGE] Check logged user uid", userLogged?.uid);
+  console.log("is hover", isHoverRef);
 
   return (
     <ContentLayout>
       <div className="home">
         {postList?.length > 0 &&
           postList?.map((el, idx) => (
-            <Card key={el?._id} className="post">
-              <CardMedia
-                component="img"
-                height="170"
-                image={el?.thumbnailImage}
-                alt="thumbnail"
-              />
-              <CardContent className="post-title">
-                <p className="post-title-content">{el?.title}</p>
-                {el?.tags.length > 0 && (
-                  <Stack direction="row" spacing={1}>
-                    {el?.tags.map((tag) => (
-                      <Chip label={tag} color="primary" variant="outlined" />
-                    ))}
-                  </Stack>
-                )}
-              </CardContent>
-              <CardActions className="post-actions">
-                <Button size="small" onClick={() => handleViewPost(el?._id)}>
-                  Xem chi tiết
-                </Button>
-                {isSignedIn && userLogged?.uid === AUTHOR_UID && (
-                  <div className="action-dropdown">
-                    <img
-                      src={moreIcon}
-                      alt=""
-                      onClick={() => handleShowActionDropdown(idx)}
-                    />
-                    {actionShow.idx === idx && actionShow.show && (
-                      <div
-                        className="action-dropdown-items"
-                        key={idx}
-                        ref={actionDropdownRef}
-                      >
-                        <div onClick={() => handleEditPost(el?._id)}>
-                          <img src={editIcon} alt="edit-icon" />
-                          {"Chỉnh sửa"}
-                        </div>
-                        <div
-                          onClick={() => {
-                            setPostId(el?._id);
-                            setModalShow(true);
-                          }}
-                        >
-                          <img src={removeIcon} alt="remove-icon" />
-                          {"Xóa"}
-                        </div>
+            <div className="custom-card" key={idx}>
+              <div className="custom-card__container">
+                <div className="custom-card__container--left">
+                  <div
+                    onMouseEnter={() => setHoverRef(true)}
+                    onMouseLeave={() => setHoverRef(false)}
+                  >
+                    <img src={el?.thumbnailImage} alt="thumbnail" />
+                    {isHoverRef && (
+                      <div onClick={() => handleViewPost(el?._id)}>
+                        <p>Xem</p>
                       </div>
                     )}
                   </div>
-                )}
-              </CardActions>
-            </Card>
+                  <div>
+                    <div>
+                      <img src={eyeIcon} alt="eye-icon" />
+                      {" 999"}
+                    </div>
+                    <div>
+                      <img src={likeIcon} alt="like-icon" />
+                      {" 999"}
+                    </div>
+                  </div>
+                </div>
+                <div className="custom-card__container--right">
+                  <p>{el?.title}</p>
+                  <p>02/03/2022</p>
+                  <p>
+                    <img src={clockIcon} alt="clock-icon" />
+                    {" 20 phút đọc"}
+                  </p>
+                  {el?.tags.length > 0 && (
+                    <Stack direction="row" spacing={1}>
+                      {el?.tags.map((tag) => (
+                        <Chip label={tag} color="primary" variant="outlined" />
+                      ))}
+                    </Stack>
+                  )}
+                </div>
+                <div className="custom-card__container--action">
+                  <div onClick={() => handleEditPost(el?._id)}>
+                    <img src={editIcon} alt="edit-icon" />
+                  </div>
+                  <div
+                    onClick={() => {
+                      setPostId(el?._id);
+                      setModalShow(true);
+                    }}
+                  >
+                    <img src={removeIcon} alt="remove-icon" />
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         {modalShow && (
           <DeleteModal
