@@ -19,20 +19,26 @@
     }
 
     & > div:nth-child(2) {
-        & > textarea {
-            height: 400px;
-            width: 100%;
-            margin-bottom: 8px;
+        // & > textarea {
+        //     height: 400px;
+        //     width: 100%;
+        //     margin-bottom: 8px;
 
-            padding-top: 10px;
-            border-radius: 6px;
-            resize: none;
-            border: 1px solid lightgray;
-            &:focus {
-                outline: none;
-            }
-        }
-        text-align: left;
+        //     padding-top: 10px;
+        //     border-radius: 6px;
+        //     resize: none;
+        //     border: 1px solid lightgray;
+        //     &:focus {
+        //         outline: none;
+        //     }
+        // }
+        // text-align: left;
+
+        // & > .ck.ck-editor__main {
+        //     border: 1px solid blue;
+        //     min-height: 550px;
+        // }
+
         & > .error-message {
             color: red;
             font-size: small;

@@ -9,6 +9,8 @@ import ContentLayout from "../../layouts/Content/Content";
 import "./AddPost.scss";
 import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
 import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddPost = () => {
   const {
@@ -31,6 +33,8 @@ const AddPost = () => {
 
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [formContent, setFormContent] = useState("");
 
   const fetchTagList = async () => {
     await dispatch(
@@ -59,7 +63,7 @@ const AddPost = () => {
 
     const newPost = {
       title: data.title,
-      content: data.content,
+      content: formContent,
       authorId: "61f2507f8db81258c1dd86dd",
       thumbnail: thumbnailImage,
       tags: data.tags,
@@ -93,10 +97,18 @@ const AddPost = () => {
         </div>
 
         <div className="mb-3">
-          <textarea
+          <CKEditor
+            editor={ClassicEditor}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+              setFormContent(data);
+            }}
+          />
+          {/* <textarea
             {...register("content", { required: true })}
             placeholder=" Content..."
-          />
+          /> */}
           {errors.content && (
             <p className="error-message">This field is required</p>
           )}
