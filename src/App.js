@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import AddPostButton from "./components/layouts/AddPostFButton/AddPostButton";
 import Header from "./components/layouts/Header/Header";
+import Sidebar from "./components/layouts/Sidebar/Sidebar";
 import AddPost from "./components/pages/AddPost/AddPost";
 import EditPost from "./components/pages/EditPost/EditPost";
 import Home from "./components/pages/Home/Home";
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
         <BrowserRouter>
-          <Header />
+          <Sidebar />
           <Routes>
             <Route
               path="/"
