@@ -65,6 +65,10 @@ const PostDetail = (props) => {
     );
   };
 
+  const createMarkup = (content) => {
+    return {__html: content};
+  }
+
   useEffect(() => {
     fetchPostDetail();
   }, []);
@@ -97,7 +101,7 @@ const PostDetail = (props) => {
             <div>
               <img src={postDetail?.thumbnailImage} alt="thumbnail" />
             </div>
-            <p>{postDetail?.content}</p>
+            <div dangerouslySetInnerHTML={createMarkup(postDetail?.content)}></div>
             <div className="post-detail-container__comment">
               <p>Bình luận</p>
 
