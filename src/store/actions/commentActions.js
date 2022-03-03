@@ -3,9 +3,7 @@ import { GET_COMMENT_LIST } from "./actionTypes";
 
 export const getCommentList = (payload) => {
   try {
-    return axiosClient.get(
-      `/comments/getAllComments?page=${payload.page}&limit=${payload.limit}`
-    );
+    return axiosClient.get(`/comments/getAllComments`);
   } catch (err) {
     console.log(err);
   }

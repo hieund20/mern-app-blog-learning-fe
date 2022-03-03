@@ -48,11 +48,7 @@ const Comment = (props) => {
         <div>{userLogged?.displayName}</div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <textarea
-          type="text"
-          {...register("comment", { required: true })}
-          placeholder="Nhập nội dung bình luận..."
-        />
+        <textarea type="text" {...register("comment", { required: true })} />
         {errors.comment && (
           <p className="error-message">This field is required</p>
         )}
@@ -61,7 +57,17 @@ const Comment = (props) => {
           <input type="submit" value="Gửi bình luận" />
         </div>
       </form>
-      <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+      <div
+        style={{
+          fontSize: 12,
+          cursor: "pointer",
+          color: "darkblue",
+          marginTop: "8px",
+        }}
+        onClick={() => firebase.auth().signOut()}
+      >
+        Đăng xuất
+      </div>
     </>
   );
 };
