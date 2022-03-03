@@ -1,11 +1,10 @@
 import { Avatar, Pagination } from "@mui/material";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import _ from "lodash";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCommentList } from "../../../store/actions/commentActions";
 import { getPostDetail } from "../../../store/actions/postsAction";
@@ -31,10 +30,7 @@ const PostDetail = (props) => {
   const dispatch = useDispatch();
 
   const [postDetail, setPostDetail] = useState([]);
-
   const [commentList, setCommentList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
 
   const fetchPostDetail = async () => {
     const payload = {
@@ -50,19 +46,18 @@ const PostDetail = (props) => {
   };
 
   const fetchCommentList = async () => {
-    const pagination = {
-      page: currentPage,
-      limit: 5,
-    };
     await dispatch(
-      getCommentList(pagination).then((res) => {
+      getCommentList().then((res) => {
         console.log("res comment", res);
         if (res?.status === "success") {
           setCommentList(res?.responseData);
-          setTotalPage(res?.totalPage);
         }
       })
     );
+  };
+
+  const createMarkup = (content) => {
+    return { __html: content };
   };
 
   useEffect(() => {
@@ -71,10 +66,8 @@ const PostDetail = (props) => {
 
   useEffect(() => {
     fetchCommentList();
-  }, [currentPage]);
+  }, []);
 
-  // console.log("post detail", postDetail);
-  // console.log("comment list", commentList);
   console.log("[POST DETAIL] Check logged user infor ", userLogged);
 
   return (
@@ -82,28 +75,28 @@ const PostDetail = (props) => {
       <div className="post-detail">
         {postDetail && (
           <div className="post-detail-container">
-            <h2>{postDetail?.title}</h2>
-            <div className="post-detail-container__author">
-              <div>
-                <Avatar
-                  alt={userLogged?.displayName}
-                  src={userLogged?.photoURL}
-                  sx={{ marginRight: "8px" }}
-                />
-                <div className="author-name">{userLogged?.displayName}</div>
-              </div>
-              {moment(postDetail?.createdAt).format("DD/MM/YYYY, h:mm:ss A")}
+            <div className="title">
+              <div>{postDetail?.title}</div>
             </div>
-            <div>
+            <div className="author">
+              <div>{`hieund `}</div>
+              <div>
+                {moment(postDetail?.createdAt).format("DD/MM/YYYY") +
+                  " - 14 phut doc"}
+              </div>
+            </div>
+            <div className="thumbnail">
               <img src={postDetail?.thumbnailImage} alt="thumbnail" />
             </div>
-            <p>{postDetail?.content}</p>
+            <div
+              dangerouslySetInnerHTML={createMarkup(postDetail?.content)}
+            ></div>
             <div className="post-detail-container__comment">
               <p>Bình luận</p>
 
               {!isSignedIn ? (
                 <div className="post-detail-container__comment--logout">
-                  <div>Đăng nhập để bình luận</div>
+                  <div>Tham gia bình luận</div>
                   <StyledFirebaseAuth
                     uiConfig={uiConfig}
                     firebaseAuth={firebase.auth()}
@@ -139,13 +132,6 @@ const PostDetail = (props) => {
                     )}
                   </div>
                 ))}
-              <div className="pagination">
-                <Pagination
-                  count={totalPage}
-                  shape="rounded"
-                  onChange={(e, value) => setCurrentPage(value)}
-                />
-              </div>
             </div>
           </div>
         )}

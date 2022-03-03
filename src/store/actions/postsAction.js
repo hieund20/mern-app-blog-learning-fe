@@ -2,9 +2,7 @@ import axiosClient from "../../helpers/axiosClient";
 
 export const getPostList = (payload) => {
   try {
-    return axiosClient.get(
-      `/posts/getAllPost?page=${payload.page}&limit=${payload.limit}`
-    );
+    return axiosClient.get(`/posts/getAllPost`);
   } catch (err) {
     console.log(err);
   }

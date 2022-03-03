@@ -9,6 +9,9 @@ import ContentLayout from "../../layouts/Content/Content";
 import "./AddPost.scss";
 import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
 import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter";
 
 const AddPost = () => {
   const {
@@ -31,6 +34,8 @@ const AddPost = () => {
 
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [formContent, setFormContent] = useState("");
 
   const fetchTagList = async () => {
     await dispatch(
@@ -59,7 +64,7 @@ const AddPost = () => {
 
     const newPost = {
       title: data.title,
-      content: data.content,
+      content: formContent,
       authorId: "61f2507f8db81258c1dd86dd",
       thumbnail: thumbnailImage,
       tags: data.tags,
@@ -77,7 +82,7 @@ const AddPost = () => {
     fetchTagList();
   }, []);
 
-  console.log("tag list 1", tagList);
+  // console.log("tag list 1", tagList);
 
   return (
     <ContentLayout>
@@ -93,9 +98,17 @@ const AddPost = () => {
         </div>
 
         <div className="mb-3">
-          <textarea
-            {...register("content", { required: true })}
-            placeholder=" Content..."
+          {/* Enhance: Table show ugly */}
+          <CKEditor
+            editor={ClassicEditor}
+            // config={{
+            //   builtinPlugins: [Base64UploadAdapter],
+            // }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+              setFormContent(data);
+            }}
           />
           {errors.content && (
             <p className="error-message">This field is required</p>
