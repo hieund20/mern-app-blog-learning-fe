@@ -32,7 +32,11 @@ const Sidebar = () => {
         </Link>
         <span>
           {`Design && Coding by `}
-          <a href="https://github.com/hieund20" target="_blank" rel="noopener">
+          <a
+            href="https://github.com/hieund20"
+            target="_blank"
+            rel="noreferrer"
+          >
             hieund
           </a>
         </span>

@@ -1,4 +1,4 @@
-import { Avatar, Pagination } from "@mui/material";
+import { Avatar } from "@mui/material";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import moment from "moment";

@@ -1,12 +1,11 @@
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import ContentLayout from "../../layouts/Content/Content";
 import { useForm } from "react-hook-form";
-import { Spinner } from "reactstrap";
-import defaultImage from "../../../assets/icons/defaultImage.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Spinner } from "reactstrap";
 import { getPostDetail, updatePost } from "../../../store/actions/postsAction";
-import _ from "lodash";
+import ContentLayout from "../../layouts/Content/Content";
 import "./EditPost.scss";
 
 const EditPost = (props) => {

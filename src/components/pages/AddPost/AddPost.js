@@ -1,6 +1,8 @@
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Spinner } from "reactstrap";
 import defaultImage from "../../../assets/icons/defaultImage.svg";
 import { postNewPost } from "../../../store/actions/postsAction";
@@ -9,8 +11,6 @@ import ContentLayout from "../../layouts/Content/Content";
 import "./AddPost.scss";
 import AddTagTrapFocus from "./SubComponents/AddTagTrapFocus/AddTagTrapFocus";
 import TagChipsSelect from "./SubComponents/TagChipsSelect/TagChipsSelect";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 // import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter";
 
 const AddPost = () => {
@@ -30,7 +30,7 @@ const AddPost = () => {
 
   const dispatch = useDispatch();
   const [tagList, setTagList] = useState([]);
-  const [tagCount, setTagCount] = useState(0);
+  // const [tagCount, setTagCount] = useState(0);
 
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ const AddPost = () => {
         console.log("res tag", res);
         if (res?.status === "success") {
           setTagList(res?.responseData);
-          setTagCount(res?.count);
+          // setTagCount(res?.count);
         }
       })
     );

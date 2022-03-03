@@ -1,5 +1,4 @@
 import axiosClient from "../../helpers/axiosClient";
-import { GET_COMMENT_LIST } from "./actionTypes";
 
 export const getCommentList = (payload) => {
   try {
