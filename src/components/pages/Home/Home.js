@@ -62,6 +62,7 @@ const Home = (props) => {
 
   useEffect(() => {
     fetchPostList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log("[HOME PAGE] Check user login", isSignedIn);
