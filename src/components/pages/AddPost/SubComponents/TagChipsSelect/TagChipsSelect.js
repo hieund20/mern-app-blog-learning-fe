@@ -26,8 +26,6 @@ const TagChipsSelect = (props) => {
     setSelected(typeof value === "string" ? value.split(",") : value);
   };
 
-  console.log("tag list", tagList);
-
   return (
     <Controller
       control={control}
@@ -45,8 +43,8 @@ const TagChipsSelect = (props) => {
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
+              {selected.map((value, idx) => (
+                <Chip key={idx} label={value} />
               ))}
             </Box>
           )}
