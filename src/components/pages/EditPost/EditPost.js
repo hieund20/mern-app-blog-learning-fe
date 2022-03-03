@@ -69,10 +69,12 @@ const EditPost = (props) => {
 
   useEffect(() => {
     fetchPostDetail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setDefaultStates();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postDetail]);
 
   console.log(postDetail);

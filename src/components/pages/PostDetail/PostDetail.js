@@ -62,10 +62,12 @@ const PostDetail = (props) => {
 
   useEffect(() => {
     fetchPostDetail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     fetchCommentList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log("[POST DETAIL] Check logged user infor ", userLogged);

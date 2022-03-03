@@ -80,6 +80,7 @@ const AddPost = () => {
 
   useEffect(() => {
     fetchTagList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // console.log("tag list 1", tagList);
